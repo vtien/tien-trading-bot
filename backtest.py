@@ -1,32 +1,32 @@
 ''' Use this script to backtest different strategies and log their results '''
 
-from strategies import *
-from os import listdir
-from os.path import isfile, join
-from HistoricalDataIndicators import HistoricalDataIndicators
-from typing import Callable
+from strategies.SMA_crossover import SmaCross
+from TechnicalDataIndicators import TechnicalIndicatorsFactory
+from backtesting import Backtest
+from backtesting.test import GOOG
 
-def read_data():
+def run_experiment():
 
-    hdi = HistoricalDataIndicators(fpath='./TradingViewData/oil_futures.csv')
-    df = hdi.MACD()
-    df.to_csv()
+    # Define data
+    hdi = TechnicalIndicatorsFactory(data_fpath='./data/TradingViewData/oil_futures.csv')
+    df = hdi.MACD(12, 26, 9)
+    df = df[['open', 'high', 'low', 'close', 'volume']]
+    df.columns = ['Open', 'High', 'Low', 'Close', 'Volume']
 
-    return df
+    # Call Backtest library
+    # bt = Backtest(GOOG, SmaCross, cash=10_000, commission=.002)
+    bt = Backtest(df, SmaCross, cash=10_000, commission=.002)
+    # stats = bt.run()
+    stats = bt.optimize(n1=range(5, 30, 5),
+                    n2=range(10, 70, 5),
+                    maximize='Equity Final [$]',
+                    constraint=lambda param: param.n1 < param.n2)
+    # bt.plot()
 
-def backtest(strategy: Callable):
-    
-    # define backtesting implementation
-
-    # log results to a text file for the given strategy
-    return
+    return stats
 
 if __name__ == "__main__":
 
-    df = read_data()
-    print(df)
-
-    # get the name of all functions in strategy directory
-    # strategies = [f for f in listdir("./strategies") if isfile(join("./strategies", f))]
-    # for strategy in strategies:
-    #     backtest(strategy)
+    stats = run_experiment()
+    print(stats)
+    print(stats._strategy)
