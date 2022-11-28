@@ -1,4 +1,4 @@
-from TechnicalDataIndicators import HistoricalDataIndicators
+from TechnicalDataIndicators import TechnicalIndicatorsFactory
 from backtesting import Backtest, Strategy
 from backtesting.lib import crossover
 import pandas as pd
@@ -10,8 +10,8 @@ class MACD_Crossover(Strategy):
         self.ma_slow = ma_slow
         self.ma_fast = ma_fast
         self.signal = signal
-        self.hdi = HistoricalDataIndicators(data)
-        self.data = self.hdi.MACD(slow=self.ma_slow, fast=self.ma_fast, signal = self.signal)
+        self.tdi = TechnicalIndicatorsFactory(data)
+        self.data = self.tdi.MACD(slow=self.ma_slow, fast=self.ma_fast, signal = self.signal)
 
         # find columns associated with MACD (they will always be the last two)
         column_names = self.data.columns
