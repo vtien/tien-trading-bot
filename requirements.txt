@@ -1,6 +1,21 @@
+Backtesting==0.3.3
+bokeh==3.0.2
+Bottleneck @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_07078715-3ab7-4562-8d3d-d56b0eaa0f7dp504n_ny/croots/recipe/bottleneck_1657175566567/work
+certifi @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_4d2o0arbv6/croot/certifi_1665076671099/work/certifi
+contourpy==1.0.6
 ibapi==9.81.1.post1
-numpy==1.23.2
-pandas==1.4.3
-python-dateutil==2.8.2
+Jinja2==3.1.2
+MarkupSafe==2.1.1
+numexpr @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_98sxk8lloi/croot/numexpr_1668713874222/work
+numpy @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_8efwh7lkf0/croot/numpy_and_numpy_base_1668593730126/work
+packaging @ file:///tmp/build/80754af9/packaging_1637314298585/work
+pandas==1.5.1
+pandas-ta==0.3.14b0
+Pillow==9.3.0
+pyparsing @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_3b_3vxnd07/croots/recipe/pyparsing_1661452540919/work
+python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
 pytz==2022.2.1
-six==1.16.0
+PyYAML==6.0
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+tornado==6.2
+xyzservices==2022.9.0
