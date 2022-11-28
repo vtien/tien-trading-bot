@@ -1,4 +1,4 @@
-from HistoricalDataIndicators import HistoricalDataIndicators
+from TechnicalDataIndicators import HistoricalDataIndicators
 from backtesting import Backtest, Strategy
 from backtesting.lib import crossover
 import pandas as pd
