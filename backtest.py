@@ -7,6 +7,8 @@ from backtesting import Backtest
 from backtesting.test import GOOG
 import pandas as pd
 
+STRATEGIES = {"smacross": SmaCross}
+
 def run_experiment(data_fpath: str, strategy: Strategy) -> pd.Series:
 
     # Read data from csv
@@ -22,14 +24,19 @@ def run_experiment(data_fpath: str, strategy: Strategy) -> pd.Series:
                     maximize='Equity Final [$]',
                     constraint=lambda param: param.n1 < param.n2)
     # bt.plot()
-
     return stats
 
 def main():
 
     # Define strategy and data filepath
-    strategy = SmaCross
-    data_fpath = './data/TradingViewData/oil_futures.csv'
+    # strategy = SmaCross
+    # data_fpath = './data/TradingViewData/oil_futures.csv'
+    strategy_inpt = str.lower(input("Input the strategy you wish to backtest: "))
+    try: 
+        strategy = STRATEGIES[strategy_inpt]
+    except KeyError:
+        raise Exception(f"Strategy must be one of {STRATEGIES.keys()}, case insensitive")
+    data_fpath = input("Input the filepath to the data you wish to backtest: ")
     
     # Run experiment
     stats = run_experiment(data_fpath, strategy)
