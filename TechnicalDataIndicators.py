@@ -8,9 +8,10 @@ class TechnicalIndicatorsFactory:
     ''' Data class for manipulating and adding various techincal indicators to pre-downloaded historical data. Currently
     using TradingView API to download historical data for testing (script for this in TradingView repo) '''
 
-    def __init__(self, data_fpath: str):
+    def __init__(self, df: pd.DataFrame):
 
-        self.df = pd.read_csv(data_fpath)
+        # self.df = pd.read_csv(data_fpath)
+        self.df = df
 
     def MACD(self, slow: int, fast: int, signal: int):
 

@@ -5,6 +5,11 @@ from TradingBot import *
 class IBapi(EWrapper, EClient):
     def __init__(self):
         EClient.__init__(self, self)
+        self.data = []
+
+    def error(self, reqId, code, msg):
+        '''Logging Error'''
+        print(f"Error {reqId}, code: {code}, message: {msg}")        
 
     def tickPrice(self, reqId, tickType, price, attrib):
         if tickType == 2 and reqId == 1:
@@ -19,26 +24,12 @@ class IBapi(EWrapper, EClient):
         except Exception as e:
             print(e)
 
-    def historicalData(self, reqId, bar):
-        print(f'Time: {bar.date} Close: {bar.close}')
+    def historicalData(self, reqId, bar) -> None:
+        print(f'Time: {bar.date} Close: {bar.close} Volume: {bar.volume}')
+        self.data.append({"time": bar.date, "close": bar.close, "volume": bar.volume})
 
     def historicalDataEnd(self, reqId: int, start: str, end: str):
         return super().historicalDataEnd(reqId, start, end)
     
     def historicalDataUpdate(self, reqId: int, bar):
         return super().historicalDataUpdate(reqId, bar)
-
-
-if __name__ == "__main__":
-
-    app = IBapi()
-    app.connect('127.0.0.1', 7496, 123)
-    app.run()
-
-'''
-#Uncomment this section if unable to connect
-#and to prevent errors on a reconnect
-import time
-time.sleep(2)
-app.disconnect()
-'''

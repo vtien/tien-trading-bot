@@ -3,21 +3,25 @@ from backtesting import Backtest, Strategy
 from backtesting.lib import crossover
 import pandas as pd
 
-class MACD_Crossover(Strategy):
+def MACD(values, slow, fast, signal):
 
-    def __init__(self, ma_slow: float, ma_fast: float, signal: float, data: pd.DataFrame):
+    df = pd.DataFrame(values)
+    tdi = TechnicalIndicatorsFactory(df)
+    return tdi.MACD(slow, fast, signal)
 
-        self.ma_slow = ma_slow
-        self.ma_fast = ma_fast
-        self.signal = signal
-        self.tdi = TechnicalIndicatorsFactory(data)
-        self.data = self.tdi.MACD(slow=self.ma_slow, fast=self.ma_fast, signal = self.signal)
+class MACDCross(Strategy):
 
-        # find columns associated with MACD (they will always be the last two)
-        column_names = self.data.columns
-        self.MACD1 = self.data[column_names[-2]]
-        self.MACD2 = self.data[column_names[-1]]
-        
+    ma_fast: float = 12
+    ma_slow: float = 26
+    signal: float = 9
+
+    def init(self):
+
+        self.macd_data = self.I(MACD, self.data.Close, self.ma_slow, self.ma_fast, self.signal)
+
+        # select columns associated with MACD (they will always be the last two)
+        self.MACD1 = self.macd_data[-2]
+        self.MACD2 = self.macd_data[-1]
 
     def next(self):
 
